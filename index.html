@@ -66,13 +66,22 @@
             </div>
           </div>
           <div id="todo-detail" class="hidden">
-            <form id="todo-detail-form">
-              <input type="text" />
-              <textarea
-                placeholder="할일 세부사항을 입력하세요. 저장하려면 아래의 변경사항 저장하기 버튼을 누르십시오."
-              ></textarea>
-              <input type="submit" value="변경사항 저장하기" />
-            </form>
+            <div class="todo-detail-layout">
+              <form id="todo-detail-form">
+                <input type="text" class="todo-detail-form-input" />
+                <textarea
+                  placeholder="할일 세부사항을 입력하세요. 저장하려면 아래의 변경사항 저장하기 버튼을 누르십시오."
+                ></textarea>
+                <div class="todo-detail-botttom-btn">
+                  <div class="todo-detail-form-button">삭제</div>
+                  <input
+                    type="submit"
+                    value="변경사항 저장하기"
+                    class="todo-detail-form-button"
+                  />
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       </div>
