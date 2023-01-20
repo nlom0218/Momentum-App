@@ -65,3 +65,8 @@ export function paintWeather(weather) {
     `${icon}<span>${weatherKR}</span>`
   );
 }
+
+export function paintTodoDetail({ todo, content }) {
+  $('#todo-detail-form input').value = todo;
+  $('#todo-detail-form textarea').innerText = content;
+}

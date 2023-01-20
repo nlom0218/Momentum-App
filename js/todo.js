@@ -1,5 +1,9 @@
 import { $ } from './libs/dom.js';
-import { paintCompletedTodo, paintTodo } from './libs/paint.js';
+import {
+  paintCompletedTodo,
+  paintTodo,
+  paintTodoDetail,
+} from './libs/paint.js';
 
 let todos = JSON.parse(localStorage.getItem('todos')) || [];
 let completedTodos = JSON.parse(localStorage.getItem('completedTodos')) || [];
@@ -58,6 +62,33 @@ function toggleTodoInLocalStorage(todoState, todo) {
   }
 }
 
+function handleClickTodo({ target }) {
+  if (!target.matches('#todo-list .todo-item')) return;
+
+  const {
+    parentElement: { id: todoId },
+  } = target;
+
+  const prevTodo = JSON.parse(localStorage.getItem('todoDetail'));
+  const prevTodoId = prevTodo ? prevTodo.id : null;
+
+  const todoDetail = [...todos, ...completedTodos].filter(
+    ({ id }) => id === todoId
+  )[0];
+
+  localStorage.setItem('todoDetail', JSON.stringify(todoDetail));
+  paintTodoDetail(todoDetail);
+  showTodoDetail(todoId, prevTodoId);
+}
+
+function showTodoDetail(todoId, prevTodoId) {
+  if (prevTodoId)
+    document.getElementById(prevTodoId).classList.remove('seleted');
+  document.getElementById(todoId).classList.add('seleted');
+  $('#todo-detail-info').classList.add('hidden');
+  $('#todo-detail').classList.remove('hidden');
+}
+
 // function handleClickDelete({ target }) {
 //   if (!target.matches('#todo-list li .del-button')) return;
 
@@ -75,4 +106,5 @@ function toggleTodoInLocalStorage(todoState, todo) {
 
 $('#todo-form').addEventListener('submit', handleSubmitTodo);
 $('#todo-list').addEventListener('click', handleClickCompleted);
+$('#todo-list').addEventListener('click', handleClickTodo);
 // $('#todo-list').addEventListener('click', handleClickDelete);
