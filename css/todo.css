@@ -28,7 +28,7 @@
 }
 
 #todo-form input:focus {
-  outline: 1.5px solid rgb(9, 255, 144);
+  outline: 1.5px solid rgba(150, 207, 215);
 }
 
 #todo-form input::placeholder {
@@ -51,12 +51,18 @@
   display: grid;
   grid-template-columns: auto 1fr auto;
   column-gap: 10px;
+  padding: 10px;
 }
 
 .progress-todos,
 .complete-todos {
   display: grid;
-  row-gap: 10px;
+  row-gap: 0px;
+}
+
+.todo-state {
+  margin-bottom: 10px;
+  margin-left: 5px;
 }
 
 .complete-todos li {
@@ -65,4 +71,8 @@
 
 .complete-btn {
   cursor: pointer;
+}
+
+#todo-list .seleted {
+  background-color: rgba(150, 207, 215, 0.5);
 }
