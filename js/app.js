@@ -2,6 +2,7 @@ import { $, $$ } from './libs/dom.js';
 import {
   paintCompletedTodos,
   paintGreetings,
+  paintTodoDetail,
   paintTodos,
 } from './libs/paint.js';
 
@@ -14,6 +15,7 @@ function handleLoadWindow() {
   loadTodos();
   loadCompletedTodos();
   loadWorkSpace();
+  loadTodoDeatil();
 }
 
 function loadWorkSpace() {
@@ -62,6 +64,17 @@ function findSelectedBtn(theme) {
   return [...$$('.theme-btn')].filter((btn) => {
     return theme === btn.dataset.theme;
   })[0];
+}
+
+function loadTodoDeatil() {
+  const todo = JSON.parse(localStorage.getItem('todoDetail'));
+
+  if (!todo) return;
+
+  document.getElementById(todo.id).classList.add('seleted');
+  $('#todo-detail-info').classList.add('hidden');
+  $('#todo-detail').classList.remove('hidden');
+  paintTodoDetail(todo);
 }
 
 window.addEventListener('load', handleLoadWindow);

@@ -97,6 +97,9 @@ function handleClickDelete() {
   todos = todos.filter(({ id }) => id !== todoId);
   completedTodos = completedTodos.filter(({ id }) => id !== todoId);
 
+  $('#todo-detail-info').classList.remove('hidden');
+  $('#todo-detail').classList.add('hidden');
+
   localStorage.removeItem('todoDetail');
   updateTodos();
   rePaintTodos();
