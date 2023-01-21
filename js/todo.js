@@ -2,6 +2,8 @@ import { $ } from './libs/dom.js';
 import {
   paintCompletedTodo,
   paintTodo,
+  paintTodos,
+  paintCompletedTodos,
   paintTodoDetail,
 } from './libs/paint.js';
 
@@ -89,13 +91,28 @@ function showTodoDetail(todoId, prevTodoId) {
   $('#todo-detail').classList.remove('hidden');
 }
 
-// function handleClickDelete({ target }) {
-//   if (!target.matches('#todo-list li .del-button')) return;
+function handleClickDelete() {
+  const { id: todoId } = JSON.parse(localStorage.getItem('todoDetail'));
 
-//   const todoId = target.parentElement.id;
-//   target.parentElement.remove(todoId);
-//   deleteTodoInLocalStorage(todoId);
-// }
+  todos = todos.filter(({ id }) => id !== todoId);
+  completedTodos = completedTodos.filter(({ id }) => id !== todoId);
+
+  localStorage.removeItem('todoDetail');
+  updateTodos();
+  rePaintTodos();
+}
+
+function rePaintTodos() {
+  $('.progress-todos').innerHTML = '<div class="todo-state">🧑‍💻 진행 중</div>';
+  $('.complete-todos').innerHTML = '<div class="todo-state">🎯 완료</div>';
+  paintTodos(todos);
+  paintCompletedTodos(completedTodos);
+}
+
+function updateTodos() {
+  localStorage.setItem('todos', JSON.stringify(todos));
+  localStorage.setItem('completedTodos', JSON.stringify(completedTodos));
+}
 
 // function deleteTodoInLocalStorage(todoId) {
 //   const todos = JSON.parse(localStorage.getItem('todos')).filter(
@@ -107,4 +124,4 @@ function showTodoDetail(todoId, prevTodoId) {
 $('#todo-form').addEventListener('submit', handleSubmitTodo);
 $('#todo-list').addEventListener('click', handleClickCompleted);
 $('#todo-list').addEventListener('click', handleClickTodo);
-// $('#todo-list').addEventListener('click', handleClickDelete);
+$('.todo-detail-form-button').addEventListener('click', handleClickDelete);
