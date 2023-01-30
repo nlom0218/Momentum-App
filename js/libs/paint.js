@@ -68,5 +68,5 @@ export function paintWeather(weather) {
 
 export function paintTodoDetail({ todo, content }) {
   $('#todo-detail-form input').value = todo;
-  $('#todo-detail-form textarea').innerText = content;
+  $('#todo-detail-form textarea').value = content;
 }

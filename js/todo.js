@@ -117,13 +117,6 @@ function updateTodos() {
   localStorage.setItem('completedTodos', JSON.stringify(completedTodos));
 }
 
-// function deleteTodoInLocalStorage(todoId) {
-//   const todos = JSON.parse(localStorage.getItem('todos')).filter(
-//     ({ id }) => id !== Number(todoId)
-//   );
-//   localStorage.setItem('todos', JSON.stringify(todos));
-// }
-
 $('#todo-form').addEventListener('submit', handleSubmitTodo);
 $('#todo-list').addEventListener('click', handleClickCompleted);
 $('#todo-list').addEventListener('click', handleClickTodo);
