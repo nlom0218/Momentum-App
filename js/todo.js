@@ -5,6 +5,7 @@ import {
   paintTodos,
   paintCompletedTodos,
   paintTodoDetail,
+  updateTodolist,
 } from './libs/paint.js';
 
 let todos = JSON.parse(localStorage.getItem('todos')) || [];
@@ -74,13 +75,17 @@ function handleClickTodo({ target }) {
   const prevTodo = JSON.parse(localStorage.getItem('todoDetail'));
   const prevTodoId = prevTodo ? prevTodo.id : null;
 
+  rePaintTodoDetail(todoId);
+  showTodoDetail(todoId, prevTodoId);
+}
+
+function rePaintTodoDetail(todoId) {
   const todoDetail = [...todos, ...completedTodos].filter(
     ({ id }) => id === todoId
   )[0];
 
   localStorage.setItem('todoDetail', JSON.stringify(todoDetail));
   paintTodoDetail(todoDetail);
-  showTodoDetail(todoId, prevTodoId);
 }
 
 function showTodoDetail(todoId, prevTodoId) {
@@ -117,7 +122,32 @@ function updateTodos() {
   localStorage.setItem('completedTodos', JSON.stringify(completedTodos));
 }
 
+function editTodo(event) {
+  event.preventDefault();
+
+  const { id: todoId } = JSON.parse(localStorage.getItem('todoDetail'));
+
+  const newTodo = event.target[0].value;
+  const newContent = event.target[1].value;
+
+  todos = todos.map((todo) => {
+    if (todo.id !== todoId) return todo;
+    return { id: todoId, todo: newTodo, content: newContent };
+  });
+  completedTodos = completedTodos.map((todo) => {
+    if (todo.id !== todoId) return todo;
+    return { id: todoId, todo: newTodo, content: newContent };
+  });
+
+  updateTodolist(todoId, newTodo);
+  updateTodos();
+  rePaintTodoDetail(todoId);
+
+  window.alert('할일이 수정되었습니다.🌳');
+}
+
 $('#todo-form').addEventListener('submit', handleSubmitTodo);
 $('#todo-list').addEventListener('click', handleClickCompleted);
 $('#todo-list').addEventListener('click', handleClickTodo);
 $('.todo-detail-form-button').addEventListener('click', handleClickDelete);
+$('#todo-detail-form').addEventListener('submit', editTodo);

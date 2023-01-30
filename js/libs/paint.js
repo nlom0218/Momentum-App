@@ -1,5 +1,5 @@
 import convertDate from './convertDate.js';
-import { $ } from './dom.js';
+import { $, $id } from './dom.js';
 import weathers from './weathers.js';
 
 const HIDDEN_CLASSNAME = 'hidden';
@@ -10,6 +10,10 @@ export function paintGreetings(username) {
   $('#greeting').classList.remove(HIDDEN_CLASSNAME);
   $('#logout').classList.remove(HIDDEN_CLASSNAME);
   $('.work-space').classList.remove(HIDDEN_CLASSNAME);
+}
+
+export function updateTodolist(id, todo) {
+  $id(id).querySelector('.todo-item').textContent = `${todo}`;
 }
 
 export function paintTodo({ todo, id }) {
