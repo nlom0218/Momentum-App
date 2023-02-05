@@ -77,4 +77,9 @@ function loadTodoDeatil() {
   paintTodoDetail(todo);
 }
 
+function handleClickGithub() {
+  window.open('https://github.com/nlom0218');
+}
+
 window.addEventListener('load', handleLoadWindow);
+$('.github').addEventListener('click', handleClickGithub);
